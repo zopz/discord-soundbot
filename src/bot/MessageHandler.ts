@@ -16,9 +16,7 @@ export default class MessageHandler {
 
   public handle(message: Message) {
     if (!this.isValidMessage(message)) return;
-    if (!this.isValidChannel(message)) {
-      return;
-    }
+    if (!this.isValidChannel(message)) return;
 
     const messageToHandle = message;
     messageToHandle.content = message.content.substring(config.prefix.length);
@@ -35,6 +33,7 @@ export default class MessageHandler {
       } else {
         message.reply(this.VALIDCHANNELS);
         message.delete();
+        return;
       }
     }
   }
