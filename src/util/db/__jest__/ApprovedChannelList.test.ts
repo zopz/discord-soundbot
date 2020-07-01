@@ -1,4 +1,5 @@
 import { add, remove, exists } from '../ApprovedChannelList';
+
 jest.mock('../connection');
 describe('ApprovedChannelList', () => {
   const channel = '123';

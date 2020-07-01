@@ -16,7 +16,6 @@ export default class MessageHandler {
 
   public handle(message: Message) {
     if (!this.isValidMessage(message)) return;
-    if (!this.isValidChannel(message)) return;
 
     const messageToHandle = message;
     messageToHandle.content = message.content.substring(config.prefix.length);
@@ -24,26 +23,13 @@ export default class MessageHandler {
     this.commands.execute(message);
   }
 
-  private isValidChannel(message: Message) {
-    if (approvedChannelList.count() === null) {
-      return true;
-    } else {
-      if (approvedChannelList.exists(message.channel.id)) {
-        return true;
-      } else {
-        message.reply(this.VALIDCHANNELS);
-        message.delete();
-        return;
-      }
-    }
-  }
-
   private isValidMessage(message: Message) {
     return (
       !message.author.bot &&
       !message.isDirectMessage() &&
       message.hasPrefix(config.prefix) &&
-      !ignoreList.exists(message.author.id)
+      !ignoreList.exists(message.author.id) &&
+      (approvedChannelList.count() !== null || !approvedChannelList.exists(message.channel.id))
     );
   }
 }
