@@ -8,6 +8,7 @@ connection
   .defaults({
     sounds: [],
     ignoreList: [],
+    validChannelList: [],
     entrances: {},
     exits: {}
   })
